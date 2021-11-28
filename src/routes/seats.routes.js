@@ -23,11 +23,21 @@ router.route('/seats/:id').get((req, res) => {
 
 /* Post requests */
 router.route('/seats').post((req, res) => {
-  const { author, text } = req.body
+  const { client, email, day, seat } = req.body
+  let seatTaken = false
 
-  if (author && text) {
-    db.seats.push({ id: shortId(), author, text })
-    res.json(messages.success)
+  db.seats.forEach((booking) => {
+    if (booking.seat === seat && booking.day === day) {
+      res.status(409).json(messages.seatTaken)
+      seatTaken = true
+    }
+  })
+
+  if (client && email && day && seat) {
+    if (!seatTaken) {
+      db.seats.push({ id: shortId(), ...req.body })
+      res.json(messages.success)
+    }
   } else {
     res.json(messages.fillInData)
   }
@@ -35,14 +45,14 @@ router.route('/seats').post((req, res) => {
 
 /* Put requests */
 router.route('/seats/:id').put((req, res) => {
-  const { author, text } = req.body
+  const { client, email, day, seat } = req.body
   const selectedRecord = db.seats.find(
     (record) => record.id === parseInt(req.params.id)
   )
 
   if (selectedRecord) {
-    if (author && text) {
-      Object.assign(selectedRecord, { author, text })
+    if (client && email && day && seat) {
+      Object.assign(selectedRecord, req.body)
       res.json(messages.success)
     } else {
       res.status(404).json(messages.fillInData)

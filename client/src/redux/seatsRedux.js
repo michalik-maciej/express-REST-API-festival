@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { API_URL } from '../config';
+import axios from 'axios';
 
 /* SELECTORS */
 export const getSeats = ({ seats }) => seats.data;
@@ -57,6 +57,9 @@ export const addSeatRequest = (seat) => {
       dispatch(endRequest({ name: 'ADD_SEAT' }));
 
     } catch(e) {
+      if (e.message.includes('409')) {
+        e.message = `Selected slot is already taken. Please choose another one.`
+      }
       dispatch(errorRequest({ name: 'ADD_SEAT', error: e.message }));
     }
 
@@ -73,6 +76,7 @@ const initialState = {
 /* REDUCER */
 
 export default function reducer(statePart = initialState, action = {}) {
+  console.log(action);
   switch (action.type) {
     case LOAD_SEATS: 
       return { ...statePart, data: [...action.payload] };
