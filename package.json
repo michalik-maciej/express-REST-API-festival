@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && yarn install && yarn build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -13,14 +17,15 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.15",
-    "shortid": "^2.2.16",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "path": "^0.12.7",
     "prettier": "^2.4.1",
-    "eslint": "^7.11.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-config-airbnb": "^19.0.0"
+    "shortid": "^2.2.16"
   }
 }
