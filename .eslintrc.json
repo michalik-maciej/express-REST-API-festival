@@ -5,25 +5,15 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb",
         "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+        }
     },
-    "plugins": [
-        "react",
-        "prettier"
-    ],
     "rules": {
-        "no-unused-vars": "warn",
-        "no-use-before-define": ["error", { "functions": false, "classes": false }],
-        "no-console": "off",
-        "prettier/prettier": "error",
+      "no-console": "off",
         "radix": 0,
         "no-restricted-syntax": "warn"
     }

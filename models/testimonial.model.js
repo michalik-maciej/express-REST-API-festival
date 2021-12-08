@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
-
-const { Schema } = mongoose
+const
+  mongoose = require('mongoose'),
+  { Schema } = mongoose
 
 const testimonialsSchema = new Schema({
-  author: { type: Schema.Types.ObjectId, required: true, ref: 'Client' },
+  author: { type: Schema.Types.ObjectId, required: true },
   text: { type: String, required: true },
 })
 

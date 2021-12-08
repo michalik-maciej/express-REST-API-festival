@@ -1,79 +1,16 @@
-const express = require('express')
+const 
+  express = require('express'),
+  { HandleCollection } = require('../controllers/main.controller'),
+  Client = require('../models/client.model'),
+  Testimonial = require('../models/testimonial.model'),
+  router = express.Router(),
+  handleTestimonials = new HandleCollection(Testimonial)
 
-const router = express.Router()
-const shortId = require('shortid')
-const db = require('../db')
-const { messages } = require('../settings')
-
-/* GET requests */
-router.route('/testimonials').get((req, res) => {
-  res.json(db.testimonials)
-})
-
-router.route('/testimonials/random').get((req, res) => {
-  const randomIndex = Math.floor(Math.random() * db.testimonials.length)
-  res.json(db.testimonials[randomIndex])
-})
-
-router.route('/testimonials/:id').get((req, res) => {
-  const result = db.testimonials.filter(
-    (record) => record.id === parseInt(req.params.id, 10)
-  )
-  if (result.length) {
-    res.json(...result)
-  } else {
-    res.status(404).json(messages.idNotFound(req.params.id))
-  }
-})
-
-/* Post requests */
-router.route('/testimonials').post((req, res) => {
-  const { author, text } = req.body
-
-  if (author && text) {
-    db.testimonials.push({ id: shortId(), author, text })
-    res.json(messages.success)
-  } else {
-    res.json(messages.fillInData)
-  }
-})
-
-/* Put requests */
-router.route('/testimonials/:id').put((req, res) => {
-  const { author, text } = req.body
-  const selectedRecord = db.testimonials.find(
-    (record) => record.id === parseInt(req.params.id)
-  )
-
-  if (selectedRecord) {
-    if (author && text) {
-      Object.assign(selectedRecord, { author, text })
-      res.json(messages.success)
-    } else {
-      res.status(404).json(messages.fillInData)
-    }
-  } else {
-    res.status(404).json(messages.idNotFound(req.params.id))
-  }
-})
-
-/* Delete requests */
-router.route('/testimonials/:id').delete((req, res) => {
-  let recordFound = false
-
-  db.testimonials.forEach((record) => {
-    if (record.id === parseInt(req.params.id)) {
-      const index = db.testimonials.indexOf(record)
-      db.testimonials.splice(index, 1)
-      recordFound = true
-    }
-  })
-
-  if (recordFound) {
-    res.json(messages.success)
-  } else {
-    res.status(404).json(messages.idNotFound(req.params.id))
-  }
-})
+router.get('/testimonials', (req, res) => handleTestimonials.getAll({ req, res }))
+router.get('/testimonials/random', (req, res) => handleTestimonials.getRandom({ req, res }))
+router.get('/testimonials/:id', (req, res) => handleTestimonials.getById({ req, res }))
+router.post('/testimonials', (req, res) => handleTestimonials.post({ req, res }))
+router.put('/testimonials/:id', (req, res) => handleTestimonials.put({ req, res }))
+router.delete('/testimonials/:id', (req, res) => handleTestimonials.delete({ req, res }))
 
 module.exports = router
