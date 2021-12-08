@@ -1,5 +1,7 @@
 /* Init data */
 const db = {
+  clients: [
+  ],
   testimonials: [
     { id: 1, author: 'John Doe', text: 'Shit happens' },
     { id: 2, author: 'Jane Tarzan', text: 'Oooooo' },
