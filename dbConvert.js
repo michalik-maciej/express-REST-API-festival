@@ -10,13 +10,15 @@ db.seats.forEach((record) => {
   delete record.email
 })
 
-Object.keys(db).forEach((key) => {
-  fs.writeFile(
-    `./db_${key}.json`,
-    JSON.stringify(db[key], undefined, 2),
-    'utf8',
-    (err) => {
-      if (err) throw err
-    }
-  )
-})
+exports.exportDB = (db) => {
+  Object.keys(db).forEach((key) => {
+    fs.writeFile(
+      `./db_${key}.json`,
+      JSON.stringify(db[key], undefined, 2),
+      'utf8',
+      (err) => {
+        if (err) throw err
+      }
+    )
+  })
+}

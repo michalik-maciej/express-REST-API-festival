@@ -20,9 +20,9 @@ app.use('/api', seatsRoutes)
 app.use('/api', concertsRoutes)
 app.use(express.static(path.join(__dirname, '/client/build')))
 
-/* app.get('*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'))
-}) */
+})
 
 /* Not found 404 */
 app.use((req, res) => {
@@ -30,7 +30,7 @@ app.use((req, res) => {
 })
 
 /* Connect to database */
-mongoose.connect('mongodb://localhost:27017/NewWaveDB', {
+mongoose.connect('mongodb+srv://halniak:xhbVR4GdzYi87jT@halniak-cluster.rnzwz.mongodb.net/NewWaveDB?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
