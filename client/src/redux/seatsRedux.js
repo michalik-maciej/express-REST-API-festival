@@ -1,5 +1,6 @@
 import { API_URL } from '../config';
 import axios from 'axios';
+import { getClientId } from '../utils/utils'
 
 /* SELECTORS */
 export const getSeats = ({ seats }) => seats.data;
@@ -34,7 +35,6 @@ export const loadSeatsRequest = () => {
     try {
 
       let res = await axios.get(`${API_URL}/seats`);
-      //await new Promise((resolve) => setTimeout(resolve, 2000));
       dispatch(loadSeats(res.data));
       dispatch(endRequest({ name: 'LOAD_SEATS' }));
 
@@ -45,14 +45,13 @@ export const loadSeatsRequest = () => {
   };
 };
 
-export const addSeatRequest = (seat) => {
+export const addSeatRequest = (order) => {
   return async dispatch => {
 
     dispatch(startRequest({ name: 'ADD_SEAT' }));
     try {
-
-      let res = await axios.post(`${API_URL}/seats`, seat);
-      //await new Promise((resolve) => setTimeout(resolve, 1000));
+      order.client = await getClientId(order)
+      let res = await axios.post(`${API_URL}/seats`, order);
       dispatch(addSeat(res));
       dispatch(endRequest({ name: 'ADD_SEAT' }));
 

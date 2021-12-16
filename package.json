@@ -24,7 +24,8 @@
     "path": "^0.12.7",
     "prettier": "^2.4.1",
     "react": "16.x.x",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "socket.io": "^4.4.0"
   },
   "devDependencies": {
     "eslint": "^7.11.0",

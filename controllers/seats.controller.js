@@ -30,6 +30,8 @@ exports.HandleSeatsCollection = class HandleSeatsCollection extends HandleCollec
       else {
         const newRecord = new this.model(req.body)
         await newRecord.save()
+        const seats = await this.model.find()
+        req.io.emit('seatsUpdated', seats)
         res.json(messages.success)
       }
     }
