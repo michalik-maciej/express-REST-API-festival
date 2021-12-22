@@ -10,4 +10,4 @@ const concertsSchema = new Schema({
   image: { type: String, required: true },
 })
 
-module.exports = mongoose.model('Concerts', concertsSchema)
+module.exports = mongoose.model('Concert', concertsSchema)

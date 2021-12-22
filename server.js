@@ -37,8 +37,13 @@ app.use((req, res) => {
   res.status(404).send(settings.messages.notFound)
 })
 
-/* Connect to database */
-mongoose.connect('mongodb+srv://halniak:xhbVR4GdzYi87jT@halniak-cluster.rnzwz.mongodb.net/NewWaveDB?retryWrites=true&w=majority', {
+/* Database config */
+const { NODE_ENV } = process.env
+let dbUri
+if ('test' === 'test') dbUri = 'mongodb://localhost:27017/NewWaveDBtest'
+else dbUri = 'mongodb+srv://halniak:xhbVR4GdzYi87jT@halniak-cluster.rnzwz.mongodb.net/NewWaveDB?retryWrites=true&w=majority'  
+
+mongoose.connect(dbUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -60,3 +65,5 @@ const io = socket(server)
 io.on('connection', (socket) => {
   console.log('connected ', socket.id)
 })
+
+module.exports = server

@@ -1,9 +1,9 @@
 const 
   express = require('express'),
-  { HandleCollection } = require('../controllers/main.controller'),
+  { HandleConcertsCollection } = require('../controllers/concerts.controller'),
   Concert = require('../models/concert.model'),
   router = express.Router(),
-  handleConcerts = new HandleCollection(Concert)
+  handleConcerts = new HandleConcertsCollection(Concert)
 
 router.get('/concerts', (req, res) => handleConcerts.getAll({ req, res }))
 router.get('/concerts/:id', (req, res) => handleConcerts.getById({ req, res }))
