@@ -40,9 +40,9 @@ app.use((req, res) => {
 /* Database config */
 const { NODE_ENV } = process.env
 let dbUri
-if ('test' === 'test') dbUri = 'mongodb://localhost:27017/NewWaveDBtest'
+if (NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/NewWaveDBtest'
 else dbUri = 'mongodb+srv://halniak:xhbVR4GdzYi87jT@halniak-cluster.rnzwz.mongodb.net/NewWaveDB?retryWrites=true&w=majority'  
-
+console.log('dbUri', dbUri)
 mongoose.connect(dbUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

@@ -1,13 +1,11 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import MainLayout from './components/layout/MainLayout/MainLayout';
-
-// import routes
 import Home from './components/pages/Home/HomePage';
+import MainLayout from './components/layout/MainLayout/MainLayout';
 import NotFound from './components/pages/NotFound/NotFoundPage';
-import Prices from './components/pages/Prices/PricesPage';
 import Order from './components/pages/Order/OrderPage.js';
+import Prices from './components/pages/Prices/PricesPage';
+import React from 'react';
 
 class App extends React.Component {
 

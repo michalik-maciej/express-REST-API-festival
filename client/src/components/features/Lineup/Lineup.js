@@ -1,7 +1,7 @@
-import React from 'react';
 import { Alert, Progress } from 'reactstrap';
 
-import Concerts from './../Concerts/Concerts';
+import Events from './../Events/Events';
+import React from 'react';
 
 class Lineup extends React.Component {
 
@@ -19,7 +19,7 @@ class Lineup extends React.Component {
     else if(!request.success || !concerts.length) return <Alert color="info">No concerts</Alert>;
     else if(request.success) return (
       <>
-        <Concerts concerts={concerts} />
+        <Events events={concerts} />
       </>
     )
 
