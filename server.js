@@ -8,10 +8,13 @@ const seatsRoutes = require('./routes/seats.routes')
 const clientsRoutes = require('./routes/clients.routes')
 const settings = require('./settings')
 const socket = require('socket.io')
+const helmet = require('helmet')
+require('dotenv').config()
 
 /* Server config */
 const app = express()
 
+app.use(helmet())
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false })) // config for Postman
@@ -38,11 +41,11 @@ app.use((req, res) => {
 })
 
 /* Database config */
-const { NODE_ENV } = process.env
+const { NODE_ENV, REMOTE_DB_URL } = process.env
 let dbUri
 if (NODE_ENV === 'test') dbUri = 'mongodb://localhost:27017/NewWaveDBtest'
-else dbUri = 'mongodb+srv://halniak:xhbVR4GdzYi87jT@halniak-cluster.rnzwz.mongodb.net/NewWaveDB?retryWrites=true&w=majority'  
-console.log('dbUri', dbUri)
+else dbUri = REMOTE_DB_URL
+
 mongoose.connect(dbUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

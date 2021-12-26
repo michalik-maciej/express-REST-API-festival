@@ -1,8 +1,10 @@
 const { messages } = require('../settings')
+const sanitize = require('mongo-sanitize')
 
 exports.HandleCollection = class HandleCollection {
   constructor(model) {
     this.model = model
+
   }
 
   async getAll(args) {
@@ -44,8 +46,9 @@ exports.HandleCollection = class HandleCollection {
 
   async post(args) {
     const { req, res } = args
+    const cleanBody = sanitize(req.body)
     try {
-      const newRecord = new this.model(req.body)
+      const newRecord = new this.model(cleanBody)
       await newRecord.save()
       res.json(messages.success)
     }

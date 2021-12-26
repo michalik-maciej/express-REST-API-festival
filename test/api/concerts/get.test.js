@@ -7,7 +7,8 @@ const Concert = require('../../../models/concert.model')
 
 chai.use(chaiHttp)
 const { expect, request } = chai
-if (process.env.NODE_ENV === 'test') {
+console.log('typeof: ', process.env.NODE_ENV)
+if (process.env.NODE_ENV.includes('test')) {
   describe('GET /api/concerts', () => {
     before(async () => {
       const testConcertOne = new Concert({ _id: '5d9f1140f10a81216cfd4408', image: 'src/test1.jpg', day: 1, price: 40, genre: 'rap', performer: 'Maxi Kaz' })
@@ -27,10 +28,6 @@ if (process.env.NODE_ENV === 'test') {
       }
     }) 
   
-    it('should perform tests in NODE_ENV=`test', () => {
-      expect(process.env.NODE_ENV).to.include('test')
-    })
-  
     it('should return all concerts', async () => {
       const res = await request(server).get('/api/concerts')
       expect(res.status).to.be.equal(200)
@@ -40,7 +37,6 @@ if (process.env.NODE_ENV === 'test') {
   
     it('should return all concerts with proper tickets info', async () => {
       const res = await request(server).get('/api/concerts')
-      console.log('res.body: ', res.body)
       res.body.forEach(concert => {
         expect(concert.tickets).to.exist
         expect(concert.tickets).to.be.a('number')

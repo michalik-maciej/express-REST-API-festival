@@ -2,7 +2,7 @@ const Workshop = require('../../models/workshop.model')
 const mongoose = require('mongoose')
 const { expect } = require('chai')
 
-if (process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV.includes('test')) {
   describe('Workshop', () => {
     it('should throw an error without required fields', () => {
       const testWorkshop = new Workshop({})
